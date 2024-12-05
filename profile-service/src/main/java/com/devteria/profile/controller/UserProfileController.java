@@ -1,6 +1,6 @@
 package com.devteria.profile.controller;
 
-import com.devteria.profile.dto.request.UserProfileCreationRequest;
+import com.devteria.profile.dto.request.ProfileCreationRequest;
 import com.devteria.profile.dto.response.UserProfileResponse;
 import com.devteria.profile.service.UserProfileService;
 import lombok.AccessLevel;
@@ -21,7 +21,7 @@ public class UserProfileController {
     UserProfileService userProfileService;
 
     @PostMapping
-    UserProfileResponse createProfile(@RequestBody UserProfileCreationRequest request){
+    UserProfileResponse createProfile(@RequestBody ProfileCreationRequest request){
         return userProfileService.createProfile(request);
     }
 

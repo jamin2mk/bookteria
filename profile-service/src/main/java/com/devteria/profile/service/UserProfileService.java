@@ -1,6 +1,6 @@
 package com.devteria.profile.service;
 
-import com.devteria.profile.dto.request.UserProfileCreationRequest;
+import com.devteria.profile.dto.request.ProfileCreationRequest;
 import com.devteria.profile.dto.response.UserProfileResponse;
 import com.devteria.profile.entity.UserProfile;
 import com.devteria.profile.mapper.UserProfileMapper;
@@ -22,7 +22,7 @@ public class UserProfileService {
     UserProfileRepository userProfileRepository;
     UserProfileMapper userProfileMapper;
 
-    public UserProfileResponse createProfile(UserProfileCreationRequest request){
+    public UserProfileResponse createProfile(ProfileCreationRequest request){
 
         UserProfile profile = userProfileMapper.toUserProfile(request);
         profile = userProfileRepository.save(profile);
