@@ -1,7 +1,7 @@
 package com.devteria.gateway.configuration;
 
 import com.devteria.gateway.dto.response.ApiResponse;
-import com.devteria.gateway.dto.response.IntrospectResponse;
+
 import com.devteria.gateway.service.IdentityService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
