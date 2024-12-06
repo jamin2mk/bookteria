@@ -75,7 +75,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         try {
             body = objectMapper.writeValueAsString(apiResponse);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage(), e);
         }
 
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
