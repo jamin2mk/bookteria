@@ -3,9 +3,6 @@ package com.devteria.identity.service;
 import java.util.HashSet;
 import java.util.List;
 
-import com.devteria.identity.dto.request.ProfileCreationRequest;
-import com.devteria.identity.httpclient.ProfileClient;
-import com.devteria.identity.mapper.ProfileMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,9 +16,11 @@ import com.devteria.identity.entity.Role;
 import com.devteria.identity.entity.User;
 import com.devteria.identity.exception.AppException;
 import com.devteria.identity.exception.ErrorCode;
+import com.devteria.identity.mapper.ProfileMapper;
 import com.devteria.identity.mapper.UserMapper;
 import com.devteria.identity.repository.RoleRepository;
 import com.devteria.identity.repository.UserRepository;
+import com.devteria.identity.repository.httpclient.ProfileClient;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
-    ProfileClient profileClient;
-
     UserMapper userMapper;
     ProfileMapper profileMapper;
     PasswordEncoder passwordEncoder;
+    ProfileClient profileClient;
 
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) throw new AppException(ErrorCode.USER_EXISTED);
@@ -53,11 +51,10 @@ public class UserService {
         user.setRoles(roles);
         user = userRepository.save(user);
 
-        // create Profile from profile-service
-        ProfileCreationRequest profile = profileMapper.toProfileCreationRequest(request);
-        profile.setUserId(user.getId());
+        var profileRequest = profileMapper.toProfileCreationRequest(request);
+        profileRequest.setUserId(user.getId());
 
-        profileClient.createProfile(profile);
+        profileClient.createProfile(profileRequest);
 
         return userMapper.toUserResponse(user);
     }
