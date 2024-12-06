@@ -1,7 +1,4 @@
-package com.devteria.identity.configuration;
-
-import java.util.Objects;
-import javax.crypto.spec.SecretKeySpec;
+package com.devteria.profile.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
@@ -11,12 +8,17 @@ import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Objects;
+
 @Component
 public class CustomJwtDecoder implements JwtDecoder {
+
+    private NimbusJwtDecoder nimbusJwtDecoder = null;
+
     @Value("${jwt.signerKey}")
     private String signerKey;
 
-    private NimbusJwtDecoder nimbusJwtDecoder = null;
 
     @Override
     public Jwt decode(String token) throws JwtException {
@@ -28,7 +30,6 @@ public class CustomJwtDecoder implements JwtDecoder {
                     .macAlgorithm(MacAlgorithm.HS512)
                     .build();
         }
-
         return nimbusJwtDecoder.decode(token);
     }
 }

@@ -9,8 +9,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("internal/users")
 @RequiredArgsConstructor
@@ -23,10 +21,5 @@ public class InternalUserProfileController {
     @PostMapping()
     UserProfileResponse createProfile(@RequestBody ProfileCreationRequest request){
         return userProfileService.createProfile(request);
-    }
-
-    @GetMapping
-    List<UserProfileResponse> getAllProfiles(){
-        return userProfileService.getAllProfiles();
     }
 }
