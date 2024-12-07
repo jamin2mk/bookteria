@@ -17,10 +17,15 @@ spring:
         - Path=${app.api-prefix}/identity/**
         filters:
         - StripPrefix=${app.api-strip-prefix}
-
       - id: profile_service
         uri: http://127.0.0.1:8081
         predicates:
         - Path=${app.api-prefix}/profile/users/**
         filters:
         - StripPrefix=${app.api-strip-prefix}
+      - id: notification_service
+        uri: http://127.0.0.1:8082
+        predicates:
+          - Path=${app.api-prefix}/notification/**
+        filters:
+          - StripPrefix=${app.api-strip-prefix}
